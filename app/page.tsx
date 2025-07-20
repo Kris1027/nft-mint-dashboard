@@ -292,13 +292,13 @@ const HomePage = () => {
                   <ExclamationTriangleIcon className="w-5 h-5" />
                 ) : status.includes('successfully') ? (
                   <CheckCircleIcon className="w-5 h-5" />
-                ) : (
+                ) : minting ? (
                   <motion.div
                     animate={{ rotate: 360 }}
                     transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                     className="w-5 h-5 border-2 border-current border-t-transparent rounded-full"
                   />
-                )}
+                ) : null}
                 <span className='font-medium'>{status}</span>
               </div>
             </motion.div>
