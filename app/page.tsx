@@ -260,21 +260,8 @@ const HomePage = () => {
                   : 'bg-gradient-to-r from-green-600 to-emerald-600 text-white hover:shadow-xl'
               }`}
             >
-              {minting ? (
-                <>
-                  <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                    className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
-                  />
-                  Minting...
-                </>
-              ) : (
-                <>
-                  <CloudArrowUpIcon className="w-5 h-5" />
-                  Mint NFT
-                </>
-              )}
+              <CloudArrowUpIcon className="w-5 h-5" />
+              {minting ? 'Minting...' : 'Mint NFT'}
             </motion.button>
           </motion.div>
         </motion.div>
