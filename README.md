@@ -1,6 +1,6 @@
 
 <p align="center">
-  <img width="700" height="894" alt="modified_image" src="https://github.com/user-attachments/assets/9c8d7d4c-a5f9-429b-810c-82b75e24bdff" />
+  <img width="854" height="981" alt="modified_image" src="https://github.com/user-attachments/assets/6f951119-4e61-40b5-8608-491026456791" />
 </p>
 
 # NFT Mint Dashboard
