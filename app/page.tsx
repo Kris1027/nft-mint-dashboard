@@ -90,6 +90,17 @@ const HomePage = () => {
       setStatus('Transaction sent, waiting for confirmation...');
       await tx.wait();
       setStatus('NFT minted successfully!');
+      
+      // Reset form after successful mint
+      setImage(null);
+      setNftName('');
+      setNftDesc('');
+      
+      // Clear file input
+      const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
+      if (fileInput) {
+        fileInput.value = '';
+      }
     } catch (error) {
       setStatus('Error minting NFT');
       console.error('Error minting NFT:', error);
