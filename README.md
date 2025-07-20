@@ -1,3 +1,8 @@
+
+<p align="center">
+  <img width="700" height="894" alt="modified_image" src="https://github.com/user-attachments/assets/9c8d7d4c-a5f9-429b-810c-82b75e24bdff" />
+</p>
+
 # NFT Mint Dashboard
 
 A simple dashboard to mint NFTs with image upload, using Lighthouse.storage for decentralized storage and a custom ERC721 smart contract.
