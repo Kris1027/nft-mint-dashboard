@@ -101,6 +101,11 @@ const HomePage = () => {
       if (fileInput) {
         fileInput.value = '';
       }
+      
+      // Clear success message after 5 seconds
+      setTimeout(() => {
+        setStatus('');
+      }, 5000);
     } catch (error) {
       setStatus('Error minting NFT');
       console.error('Error minting NFT:', error);
