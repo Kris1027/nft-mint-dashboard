@@ -4,9 +4,10 @@ import { ethers } from 'ethers';
 import abiJson from '../abi/MyNFT.json';
 import { useState } from 'react';
 import lighthouse from '@lighthouse-web3/sdk';
+import { env } from '../lib/env';
 
-const CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS;
-const LIGHTHOUSE_API_KEY = process.env.NEXT_PUBLIC_LIGHTHOUSE_API_KEY;
+const CONTRACT_ADDRESS = env.NEXT_PUBLIC_CONTRACT_ADDRESS;
+const LIGHTHOUSE_API_KEY = env.NEXT_PUBLIC_LIGHTHOUSE_API_KEY;
 
 const HomePage = () => {
   const [account, setAccount] = useState<string | null>(null);
@@ -59,18 +60,12 @@ const HomePage = () => {
     setMinting(true);
     setStatus('Uploading image to Lighthouse...');
     try {
-      // 1. Upload image to Lighthouse
       const imageBuffer = await image.arrayBuffer();
       const imageFile = new File([imageBuffer], image.name, { type: image.type });
-      if (!LIGHTHOUSE_API_KEY) {
-        setStatus('Lighthouse API key is missing');
-        setMinting(false);
-        return;
-      }
-      const imageUploadRes = await lighthouse.upload([imageFile], LIGHTHOUSE_API_KEY as string);
+      const imageUploadRes = await lighthouse.upload([imageFile], LIGHTHOUSE_API_KEY);
       const imageCid = imageUploadRes.data.Hash;
       const imageUrl = `https://gateway.lighthouse.storage/ipfs/${imageCid}`;
-      // 2. Create metadata JSON
+
       const metadata = {
         name: nftName,
         description: nftDesc,
@@ -80,10 +75,7 @@ const HomePage = () => {
       const metadataFile = new File([metadataBlob], 'metadata.json');
 
       setStatus('Uploading metadata to Lighthouse...');
-      const metadataUploadRes = await lighthouse.upload(
-        [metadataFile],
-        LIGHTHOUSE_API_KEY as string
-      );
+      const metadataUploadRes = await lighthouse.upload([metadataFile], LIGHTHOUSE_API_KEY);
       const metadataCid = metadataUploadRes.data.Hash;
       const metadataUrl = `https://gateway.lighthouse.storage/ipfs/${metadataCid}`;
 
@@ -91,11 +83,6 @@ const HomePage = () => {
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
       const abi = abiJson.abi;
-      if (!CONTRACT_ADDRESS) {
-        setStatus('Contract address is missing');
-        setMinting(false);
-        return;
-      }
       const contract = new ethers.Contract(CONTRACT_ADDRESS, abi, signer);
       const tx = await contract.mint(account, metadataUrl);
       setStatus('Transaction sent, waiting for confirmation...');
